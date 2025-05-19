@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
@@ -7,7 +6,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
-import { getDiscrepancias } from "@/services/api";
+import { getAnaliseDiscrepancias } from "@/services/api";
 import { format } from "date-fns";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -25,7 +24,7 @@ type FilterValues = z.infer<typeof filterSchema>;
 export function DiscrepanciasPage() {
   const { data: discrepancias = [], isLoading, error } = useQuery({
     queryKey: ["discrepancias"],
-    queryFn: getDiscrepancias,
+    queryFn: getAnaliseDiscrepancias,
   });
 
   const form = useForm<FilterValues>({
@@ -56,29 +55,35 @@ export function DiscrepanciasPage() {
     {
       id: "1",
       empresa_id: "1",
-      tipo_discrep: "Divergência de entrada",
+      tipo_discrepancia: "Divergência de entrada",
       produto: "Produto A",
       quantidade: 10,
-      data_evento: "2025-05-15",
-      criado_em: "2025-05-16",
+      total_entradas: 10,
+      total_saidas: 0,
+      created_at: "2025-05-16",
+      updated_at: "2025-05-16",
     },
     {
       id: "2",
       empresa_id: "2",
-      tipo_discrep: "Divergência de saída",
+      tipo_discrepancia: "Divergência de saída",
       produto: "Produto B",
       quantidade: 5,
-      data_evento: "2025-05-14",
-      criado_em: "2025-05-16",
+      total_entradas: 0,
+      total_saidas: 5,
+      created_at: "2025-05-16",
+      updated_at: "2025-05-16",
     },
     {
       id: "3",
       empresa_id: "1",
-      tipo_discrep: "Produto não encontrado",
+      tipo_discrepancia: "Produto não encontrado",
       produto: "Produto C",
       quantidade: 3,
-      data_evento: "2025-05-13",
-      criado_em: "2025-05-16",
+      total_entradas: 0,
+      total_saidas: 3,
+      created_at: "2025-05-16",
+      updated_at: "2025-05-16",
     },
   ];
 
@@ -142,7 +147,7 @@ export function DiscrepanciasPage() {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="">Todos os tipos</SelectItem>
+                          <SelectItem value="all">Todos os tipos</SelectItem>
                           <SelectItem value="Divergência de entrada">Divergência de entrada</SelectItem>
                           <SelectItem value="Divergência de saída">Divergência de saída</SelectItem>
                           <SelectItem value="Produto não encontrado">Produto não encontrado</SelectItem>
@@ -194,10 +199,10 @@ export function DiscrepanciasPage() {
                       </TableCell>
                       <TableCell>
                         <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-amber-50 text-amber-700 dark:bg-amber-900/20 dark:text-amber-400`}>
-                          {disc.tipo_discrep}
+                          {disc.tipo_discrepancia}
                         </span>
                       </TableCell>
-                      <TableCell>{disc.quantidade}</TableCell>
+                      <TableCell>{disc.total_entradas - disc.total_saidas}</TableCell>
                       <TableCell>{formatDate(disc.data_evento)}</TableCell>
                       <TableCell>{formatDate(disc.criado_em)}</TableCell>
                     </TableRow>
