@@ -16,7 +16,9 @@ import { TransacaoDetail } from "./pages/transacoes/TransacaoDetail";
 import { EstoquePage } from "./pages/estoque/EstoquePage";
 import { EstoqueForm } from "./pages/estoque/EstoqueForm";
 import { EstoqueDetail } from "./pages/estoque/EstoqueDetail";
-import { DiscrepanciasPage } from "./pages/discrepancias/DiscrepanciasPage";
+import { AnaliseDiscrepanciaPage } from "./pages/analise/AnaliseDiscrepanciaPage";
+import { AnaliseDiscrepanciaForm } from "./pages/analise/AnaliseDiscrepanciaForm";
+import { AnaliseDiscrepanciaDetail } from "./pages/analise/AnaliseDiscrepanciaDetail";
 
 const queryClient = new QueryClient();
 
@@ -47,8 +49,11 @@ const App = () => (
           <Route path="/estoque/:id" element={<Layout><EstoqueDetail /></Layout>} />
           <Route path="/estoque/:id/editar" element={<Layout><EstoqueForm /></Layout>} />
           
-          {/* Rota de Discrepâncias */}
-          <Route path="/discrepancias" element={<Layout><DiscrepanciasPage /></Layout>} />
+          {/* Rotas de Análise de Discrepâncias */}
+          <Route path="/analise" element={<Layout><AnaliseDiscrepanciaPage /></Layout>} />
+          <Route path="/analise/novo" element={<Layout><AnaliseDiscrepanciaForm /></Layout>} />
+          <Route path="/analise/:id" element={<Layout><AnaliseDiscrepanciaDetail /></Layout>} />
+          <Route path="/analise/:id/editar" element={<Layout><AnaliseDiscrepanciaForm /></Layout>} />
           
           {/* Rota 404 */}
           <Route path="*" element={<NotFound />} />

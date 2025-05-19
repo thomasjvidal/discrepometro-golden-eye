@@ -9,6 +9,59 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      analise_discrepancia: {
+        Row: {
+          codigo_produto: string | null
+          created_at: string
+          empresa_id: string | null
+          estoque_final_2021: number
+          estoque_inicial_2021: number
+          fonte: string | null
+          id: string
+          produto: string
+          tipo_discrepancia: string | null
+          total_entradas: number
+          total_saidas: number
+          updated_at: string
+        }
+        Insert: {
+          codigo_produto?: string | null
+          created_at?: string
+          empresa_id?: string | null
+          estoque_final_2021?: number
+          estoque_inicial_2021?: number
+          fonte?: string | null
+          id?: string
+          produto: string
+          tipo_discrepancia?: string | null
+          total_entradas?: number
+          total_saidas?: number
+          updated_at?: string
+        }
+        Update: {
+          codigo_produto?: string | null
+          created_at?: string
+          empresa_id?: string | null
+          estoque_final_2021?: number
+          estoque_inicial_2021?: number
+          fonte?: string | null
+          id?: string
+          produto?: string
+          tipo_discrepancia?: string | null
+          total_entradas?: number
+          total_saidas?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "analise_discrepancia_empresa_id_fkey"
+            columns: ["empresa_id"]
+            isOneToOne: false
+            referencedRelation: "empresas"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       empresas: {
         Row: {
           cnpj: string
@@ -31,6 +84,8 @@ export type Database = {
         Row: {
           data_base: string
           empresa_id: string | null
+          estoque_final_2021: number | null
+          estoque_inicial_2021: number | null
           id: string
           produto: string
           quantidade_final: number
@@ -38,6 +93,8 @@ export type Database = {
         Insert: {
           data_base: string
           empresa_id?: string | null
+          estoque_final_2021?: number | null
+          estoque_inicial_2021?: number | null
           id?: string
           produto: string
           quantidade_final: number
@@ -45,6 +102,8 @@ export type Database = {
         Update: {
           data_base?: string
           empresa_id?: string | null
+          estoque_final_2021?: number | null
+          estoque_inicial_2021?: number | null
           id?: string
           produto?: string
           quantidade_final?: number
@@ -62,32 +121,50 @@ export type Database = {
       transacoes: {
         Row: {
           cfop: string
+          codigo_produto: string | null
           data: string
           empresa_id: string | null
+          estoque_final_2021: number | null
+          estoque_inicial_2021: number | null
           id: string
+          nome_produto: string | null
           produto: string
           quantidade: number
           tipo: string | null
+          total_entradas: number | null
+          total_saidas: number | null
           valor: number
         }
         Insert: {
           cfop: string
+          codigo_produto?: string | null
           data: string
           empresa_id?: string | null
+          estoque_final_2021?: number | null
+          estoque_inicial_2021?: number | null
           id?: string
+          nome_produto?: string | null
           produto: string
           quantidade: number
           tipo?: string | null
+          total_entradas?: number | null
+          total_saidas?: number | null
           valor: number
         }
         Update: {
           cfop?: string
+          codigo_produto?: string | null
           data?: string
           empresa_id?: string | null
+          estoque_final_2021?: number | null
+          estoque_inicial_2021?: number | null
           id?: string
+          nome_produto?: string | null
           produto?: string
           quantidade?: number
           tipo?: string | null
+          total_entradas?: number | null
+          total_saidas?: number | null
           valor?: number
         }
         Relationships: [

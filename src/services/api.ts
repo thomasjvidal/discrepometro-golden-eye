@@ -1,6 +1,6 @@
 
 import { supabase } from "@/integrations/supabase/client";
-import { Empresa, Transacao, Estoque, Discrepancia } from "@/types";
+import { Empresa, Transacao, Estoque, AnaliseDiscrepancia } from "@/types";
 
 // Empresas
 export const getEmpresas = async (): Promise<Empresa[]> => {
@@ -148,9 +148,54 @@ export const deleteEstoque = async (id: string): Promise<void> => {
   if (error) throw error;
 };
 
-// Função para calcular discrepâncias (como não temos uma tabela real, vamos simular)
-export const getDiscrepancias = async (): Promise<Discrepancia[]> => {
-  // Aqui seria uma query para obter discrepâncias de uma tabela real
-  // Por enquanto, vamos retornar um array vazio
-  return [];
+// Análise de Discrepâncias
+export const getAnaliseDiscrepancias = async (): Promise<AnaliseDiscrepancia[]> => {
+  const { data, error } = await supabase.from("analise_discrepancia").select("*");
+  if (error) throw error;
+  return data;
+};
+
+export const getAnaliseDiscrepancia = async (id: string): Promise<AnaliseDiscrepancia> => {
+  const { data, error } = await supabase
+    .from("analise_discrepancia")
+    .select("*")
+    .eq("id", id)
+    .single();
+  if (error) throw error;
+  return data;
+};
+
+export const createAnaliseDiscrepancia = async (analiseDiscrepancia: Omit<AnaliseDiscrepancia, "id" | "created_at" | "updated_at">): Promise<AnaliseDiscrepancia> => {
+  const { data, error } = await supabase
+    .from("analise_discrepancia")
+    .insert([analiseDiscrepancia])
+    .select()
+    .single();
+  if (error) throw error;
+  return data;
+};
+
+export const updateAnaliseDiscrepancia = async (id: string, analiseDiscrepancia: Partial<AnaliseDiscrepancia>): Promise<AnaliseDiscrepancia> => {
+  const { data, error } = await supabase
+    .from("analise_discrepancia")
+    .update(analiseDiscrepancia)
+    .eq("id", id)
+    .select()
+    .single();
+  if (error) throw error;
+  return data;
+};
+
+export const deleteAnaliseDiscrepancia = async (id: string): Promise<void> => {
+  const { error } = await supabase.from("analise_discrepancia").delete().eq("id", id);
+  if (error) throw error;
+};
+
+// Função para calcular estoque final com base em dados
+export const calcularEstoqueFinal = (
+  estoqueInicial: number,
+  totalEntradas: number,
+  totalSaidas: number
+): number => {
+  return estoqueInicial + totalEntradas - totalSaidas;
 };

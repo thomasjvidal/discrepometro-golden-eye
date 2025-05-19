@@ -20,7 +20,7 @@ export function Layout({ children }: LayoutProps) {
     { title: "Empresas", url: "/empresas", icon: Building },
     { title: "Transações", url: "/transacoes", icon: BarChart3 },
     { title: "Estoque", url: "/estoque", icon: ShoppingBasket },
-    { title: "Discrepâncias", url: "/discrepancias", icon: AlertCircle },
+    { title: "Análise de Discrepâncias", url: "/analise", icon: AlertCircle },
   ];
 
   // Check which menu item is currently active
