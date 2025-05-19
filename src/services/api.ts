@@ -152,7 +152,13 @@ export const deleteEstoque = async (id: string): Promise<void> => {
 export const getAnaliseDiscrepancias = async (): Promise<AnaliseDiscrepancia[]> => {
   const { data, error } = await supabase.from("analise_discrepancia").select("*");
   if (error) throw error;
-  return data;
+  
+  // Ensure the tipo_discrepancia and fonte are correctly typed
+  return data.map(item => ({
+    ...item,
+    tipo_discrepancia: item.tipo_discrepancia as AnaliseDiscrepancia['tipo_discrepancia'],
+    fonte: item.fonte as AnaliseDiscrepancia['fonte']
+  }));
 };
 
 export const getAnaliseDiscrepancia = async (id: string): Promise<AnaliseDiscrepancia> => {
@@ -162,7 +168,12 @@ export const getAnaliseDiscrepancia = async (id: string): Promise<AnaliseDiscrep
     .eq("id", id)
     .single();
   if (error) throw error;
-  return data;
+  
+  return {
+    ...data,
+    tipo_discrepancia: data.tipo_discrepancia as AnaliseDiscrepancia['tipo_discrepancia'],
+    fonte: data.fonte as AnaliseDiscrepancia['fonte']
+  };
 };
 
 export const createAnaliseDiscrepancia = async (analiseDiscrepancia: Omit<AnaliseDiscrepancia, "id" | "created_at" | "updated_at">): Promise<AnaliseDiscrepancia> => {
@@ -172,7 +183,12 @@ export const createAnaliseDiscrepancia = async (analiseDiscrepancia: Omit<Analis
     .select()
     .single();
   if (error) throw error;
-  return data;
+  
+  return {
+    ...data,
+    tipo_discrepancia: data.tipo_discrepancia as AnaliseDiscrepancia['tipo_discrepancia'],
+    fonte: data.fonte as AnaliseDiscrepancia['fonte']
+  };
 };
 
 export const updateAnaliseDiscrepancia = async (id: string, analiseDiscrepancia: Partial<AnaliseDiscrepancia>): Promise<AnaliseDiscrepancia> => {
@@ -183,7 +199,12 @@ export const updateAnaliseDiscrepancia = async (id: string, analiseDiscrepancia:
     .select()
     .single();
   if (error) throw error;
-  return data;
+  
+  return {
+    ...data,
+    tipo_discrepancia: data.tipo_discrepancia as AnaliseDiscrepancia['tipo_discrepancia'],
+    fonte: data.fonte as AnaliseDiscrepancia['fonte']
+  };
 };
 
 export const deleteAnaliseDiscrepancia = async (id: string): Promise<void> => {

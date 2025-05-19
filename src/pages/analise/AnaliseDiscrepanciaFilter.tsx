@@ -30,8 +30,8 @@ export function AnaliseDiscrepanciaFilter({ filters, onFilterChange }: FilterPro
 
   const handleClearFilters = () => {
     const clearedFilters = {
-      tipo: "",
-      fonte: "",
+      tipo: "all",
+      fonte: "all",
       cfop: "",
       dataInicio: "",
       dataFim: "",
@@ -53,7 +53,7 @@ export function AnaliseDiscrepanciaFilter({ filters, onFilterChange }: FilterPro
               <SelectValue placeholder="Selecione o tipo" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">Todos</SelectItem>
+              <SelectItem value="all">Todos</SelectItem>
               <SelectItem value="Compra sem Nota">Compra sem Nota</SelectItem>
               <SelectItem value="Venda sem Nota">Venda sem Nota</SelectItem>
               <SelectItem value="Sem Discrepância">Sem Discrepância</SelectItem>
@@ -71,7 +71,7 @@ export function AnaliseDiscrepanciaFilter({ filters, onFilterChange }: FilterPro
               <SelectValue placeholder="Selecione a fonte" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">Todas</SelectItem>
+              <SelectItem value="all">Todas</SelectItem>
               <SelectItem value="EFD">EFD</SelectItem>
               <SelectItem value="Planilha Emitente">Planilha Emitente</SelectItem>
               <SelectItem value="Planilha Destinatário">Planilha Destinatário</SelectItem>
