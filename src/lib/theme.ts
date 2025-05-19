@@ -3,24 +3,24 @@ import { createTheme } from "@/lib/utils";
 
 export const discrepometroTheme = createTheme({
   dark: {
-    background: "#1A1F2C",
-    foreground: "#ffffff",
-    card: "#252A37",
-    cardForeground: "#ffffff",
-    popover: "#252A37",
-    popoverForeground: "#ffffff",
-    primary: "#F97316", // tom dourado/laranja
+    background: "#F1F1F1", // Alterado para branco gelo
+    foreground: "#1A1F2C", // Texto escuro para contraste
+    card: "#FFFFFF", // Cards com fundo branco
+    cardForeground: "#1A1F2C", // Texto escuro em cards
+    popover: "#FFFFFF",
+    popoverForeground: "#1A1F2C",
+    primary: "#F97316", // tom dourado/laranja mantido
     primaryForeground: "#000000",
-    secondary: "#343A4A",
-    secondaryForeground: "#ffffff",
-    muted: "#343A4A",
-    mutedForeground: "#8E9196",
-    accent: "#343A4A",
-    accentForeground: "#ffffff",
+    secondary: "#E9ECF1", // Secundário mais claro
+    secondaryForeground: "#1A1F2C",
+    muted: "#E9ECF1",
+    mutedForeground: "#5A6173", // Texto muted mais escuro para melhor legibilidade
+    accent: "#E9ECF1",
+    accentForeground: "#1A1F2C",
     destructive: "#EF4444",
-    destructiveForeground: "#ffffff",
-    border: "#3A4058",
-    input: "#252A37",
+    destructiveForeground: "#FFFFFF",
+    border: "#D1D5DB", // Bordas mais visíveis
+    input: "#FFFFFF", // Input com fundo branco
     ring: "#F97316",
   }
 });

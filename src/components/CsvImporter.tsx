@@ -167,38 +167,39 @@ export function CsvImporter({ entityType = "empresas", onSuccess }: CsvImporterP
   const defaultTab = entityType;
 
   return (
-    <Card className="w-full">
-      <CardHeader>
-        <CardTitle>Importação de CSV</CardTitle>
-        <CardDescription>
+    <Card className="w-full border-2 border-gray-300 shadow-lg">
+      <CardHeader className="bg-white rounded-t-md">
+        <CardTitle className="text-gray-800 text-xl">Importação de CSV</CardTitle>
+        <CardDescription className="text-gray-600">
           Importe dados de CSV para o sistema
         </CardDescription>
       </CardHeader>
-      <CardContent>
-        <Tabs defaultValue={defaultTab}>
-          <TabsList className="mb-4">
-            {entityType === "empresas" && <TabsTrigger value="empresas">Empresas</TabsTrigger>}
-            {entityType === "transacoes" && <TabsTrigger value="transacoes">Transações</TabsTrigger>}
-            {entityType === "estoque" && <TabsTrigger value="estoque">Estoque</TabsTrigger>}
-            {entityType === "analiseDiscrepancia" && <TabsTrigger value="analiseDiscrepancia">Análise de Discrepâncias</TabsTrigger>}
+      <CardContent className="bg-white pt-6">
+        <Tabs defaultValue={entityType}>
+          <TabsList className="mb-4 bg-gray-100">
+            {entityType === "empresas" && <TabsTrigger value="empresas" className="text-gray-800">Empresas</TabsTrigger>}
+            {entityType === "transacoes" && <TabsTrigger value="transacoes" className="text-gray-800">Transações</TabsTrigger>}
+            {entityType === "estoque" && <TabsTrigger value="estoque" className="text-gray-800">Estoque</TabsTrigger>}
+            {entityType === "analiseDiscrepancia" && <TabsTrigger value="analiseDiscrepancia" className="text-gray-800">Análise de Discrepâncias</TabsTrigger>}
           </TabsList>
           
           {entityType === "empresas" && (
             <TabsContent value="empresas">
               <div className="grid gap-4">
-                <Label htmlFor="empresas-csv">Arquivo CSV de Empresas</Label>
+                <Label htmlFor="empresas-csv" className="text-gray-800 font-medium">Arquivo CSV de Empresas</Label>
                 <Input
                   id="empresas-csv"
                   type="file"
                   accept=".csv"
                   onChange={(e) => handleFileChange(e, 'empresas')}
+                  className="bg-white border-2 border-gray-300 text-gray-800"
                 />
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-gray-600 font-medium">
                   Colunas esperadas: nome, cnpj
                 </p>
               </div>
               <Button 
-                className="mt-4 w-full"
+                className="mt-4 w-full bg-primary text-white hover:bg-primary/90"
                 onClick={() => uploadCsv('empresas')}
                 disabled={!files.empresas || loading.empresas}
               >
@@ -210,20 +211,21 @@ export function CsvImporter({ entityType = "empresas", onSuccess }: CsvImporterP
           {entityType === "transacoes" && (
             <TabsContent value="transacoes">
               <div className="grid gap-4">
-                <Label htmlFor="transacoes-csv">Arquivo CSV de Transações</Label>
+                <Label htmlFor="transacoes-csv" className="text-gray-800 font-medium">Arquivo CSV de Transações</Label>
                 <Input
                   id="transacoes-csv"
                   type="file"
                   accept=".csv"
                   onChange={(e) => handleFileChange(e, 'transacoes')}
+                  className="bg-white border-2 border-gray-300 text-gray-800"
                 />
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-gray-600 font-medium">
                   Colunas esperadas: produto, valor, data, quantidade, tipo, cfop, empresa_id, codigo_produto, nome_produto,
                   estoque_inicial_2021, estoque_final_2021, total_entradas, total_saidas
                 </p>
               </div>
               <Button 
-                className="mt-4 w-full"
+                className="mt-4 w-full bg-primary text-white hover:bg-primary/90"
                 onClick={() => uploadCsv('transacoes')}
                 disabled={!files.transacoes || loading.transacoes}
               >
@@ -235,19 +237,20 @@ export function CsvImporter({ entityType = "empresas", onSuccess }: CsvImporterP
           {entityType === "estoque" && (
             <TabsContent value="estoque">
               <div className="grid gap-4">
-                <Label htmlFor="estoque-csv">Arquivo CSV de Estoque</Label>
+                <Label htmlFor="estoque-csv" className="text-gray-800 font-medium">Arquivo CSV de Estoque</Label>
                 <Input
                   id="estoque-csv"
                   type="file"
                   accept=".csv"
                   onChange={(e) => handleFileChange(e, 'estoque')}
+                  className="bg-white border-2 border-gray-300 text-gray-800"
                 />
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-gray-600 font-medium">
                   Colunas esperadas: produto, quantidade_final, data_base, empresa_id, estoque_inicial_2021, estoque_final_2021
                 </p>
               </div>
               <Button 
-                className="mt-4 w-full"
+                className="mt-4 w-full bg-primary text-white hover:bg-primary/90"
                 onClick={() => uploadCsv('estoque')}
                 disabled={!files.estoque || loading.estoque}
               >
@@ -259,20 +262,21 @@ export function CsvImporter({ entityType = "empresas", onSuccess }: CsvImporterP
           {entityType === "analiseDiscrepancia" && (
             <TabsContent value="analiseDiscrepancia">
               <div className="grid gap-4">
-                <Label htmlFor="analise-csv">Arquivo CSV de Análise de Discrepâncias</Label>
+                <Label htmlFor="analise-csv" className="text-gray-800 font-medium">Arquivo CSV de Análise de Discrepâncias</Label>
                 <Input
                   id="analise-csv"
                   type="file"
                   accept=".csv"
                   onChange={(e) => handleFileChange(e, 'analiseDiscrepancia')}
+                  className="bg-white border-2 border-gray-300 text-gray-800"
                 />
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-gray-600 font-medium">
                   Colunas esperadas: produto, codigo_produto, estoque_inicial_2021, estoque_final_2021,
                   total_entradas, total_saidas, tipo_discrepancia, fonte, empresa_id
                 </p>
               </div>
               <Button 
-                className="mt-4 w-full"
+                className="mt-4 w-full bg-primary text-white hover:bg-primary/90"
                 onClick={() => uploadCsv('analiseDiscrepancia')}
                 disabled={!files.analiseDiscrepancia || loading.analiseDiscrepancia}
               >
@@ -282,9 +286,9 @@ export function CsvImporter({ entityType = "empresas", onSuccess }: CsvImporterP
           )}
         </Tabs>
       </CardContent>
-      <CardFooter className="flex flex-col items-center text-center text-sm text-muted-foreground">
+      <CardFooter className="flex flex-col items-center text-center text-sm bg-white rounded-b-md py-4">
         <UploadCloud className="mb-2 text-primary" size={24} />
-        <p>Arraste e solte arquivos CSV ou clique para selecionar</p>
+        <p className="text-gray-700 font-medium">Arraste e solte arquivos CSV ou clique para selecionar</p>
       </CardFooter>
     </Card>
   );
