@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { getTransacoes, deleteTransacao } from "@/services/api";
 import { CsvImporter } from "@/components/CsvImporter";
-import { Plus, FileImport, Trash, Edit } from "lucide-react";
+import { Plus, FileUp, Trash, Edit } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import { format } from "date-fns";
 
@@ -70,7 +70,7 @@ export function TransacoesPage() {
             variant="outline"
             onClick={() => setShowImporter(!showImporter)}
           >
-            <FileImport className="mr-2 h-4 w-4" />
+            <FileUp className="mr-2 h-4 w-4" />
             {showImporter ? "Ocultar Importador" : "Importar CSV"}
           </Button>
           <Button asChild>

@@ -13,13 +13,16 @@ import { getTransacao, createTransacao, updateTransacao, getEmpresas } from "@/s
 import { toast } from "@/hooks/use-toast";
 import { ArrowLeft, Save } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
+import { Transacao } from "@/types";
 
 const formSchema = z.object({
   produto: z.string().min(1, "Produto é obrigatório"),
   quantidade: z.coerce.number().min(0.01, "A quantidade deve ser maior que zero"),
   valor: z.coerce.number().min(0.01, "O valor deve ser maior que zero"),
   data: z.string().min(1, "Data é obrigatória"),
-  tipo: z.string().min(1, "Tipo é obrigatório"),
+  tipo: z.enum(["entrada", "saida"], { 
+    required_error: "Selecione o tipo de transação" 
+  }),
   cfop: z.string().min(1, "CFOP é obrigatório"),
   empresa_id: z.string().optional(),
 });
@@ -88,13 +91,13 @@ export function TransacaoForm() {
       setLoading(true);
       
       if (isEditing && id) {
-        await updateTransacao(id, values);
+        await updateTransacao(id, values as Partial<Transacao>);
         toast({
           title: "Transação atualizada",
           description: "Dados da transação atualizados com sucesso",
         });
       } else {
-        await createTransacao(values);
+        await createTransacao(values as Omit<Transacao, "id">);
         toast({
           title: "Transação criada",
           description: "Nova transação cadastrada com sucesso",

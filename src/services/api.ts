@@ -49,7 +49,12 @@ export const deleteEmpresa = async (id: string): Promise<void> => {
 export const getTransacoes = async (): Promise<Transacao[]> => {
   const { data, error } = await supabase.from("transacoes").select("*");
   if (error) throw error;
-  return data;
+  
+  // Ensure the tipos are correctly typed
+  return data.map(item => ({
+    ...item,
+    tipo: item.tipo as "entrada" | "saida"
+  }));
 };
 
 export const getTransacao = async (id: string): Promise<Transacao> => {
@@ -59,7 +64,11 @@ export const getTransacao = async (id: string): Promise<Transacao> => {
     .eq("id", id)
     .single();
   if (error) throw error;
-  return data;
+  
+  return {
+    ...data,
+    tipo: data.tipo as "entrada" | "saida"
+  };
 };
 
 export const createTransacao = async (transacao: Omit<Transacao, "id">): Promise<Transacao> => {
@@ -69,7 +78,11 @@ export const createTransacao = async (transacao: Omit<Transacao, "id">): Promise
     .select()
     .single();
   if (error) throw error;
-  return data;
+  
+  return {
+    ...data,
+    tipo: data.tipo as "entrada" | "saida"
+  };
 };
 
 export const updateTransacao = async (id: string, transacao: Partial<Transacao>): Promise<Transacao> => {
@@ -80,7 +93,11 @@ export const updateTransacao = async (id: string, transacao: Partial<Transacao>)
     .select()
     .single();
   if (error) throw error;
-  return data;
+  
+  return {
+    ...data,
+    tipo: data.tipo as "entrada" | "saida"
+  };
 };
 
 export const deleteTransacao = async (id: string): Promise<void> => {

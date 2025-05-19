@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { getEmpresa, createEmpresa, updateEmpresa } from "@/services/api";
 import { toast } from "@/hooks/use-toast";
 import { ArrowLeft, Save } from "lucide-react";
+import { Empresa } from "@/types";
 
 const formSchema = z.object({
   nome: z.string().min(1, "Nome é obrigatório"),
@@ -66,13 +67,19 @@ export function EmpresaForm() {
       setLoading(true);
       
       if (isEditing && id) {
-        await updateEmpresa(id, values);
+        await updateEmpresa(id, values as Partial<Empresa>);
         toast({
           title: "Empresa atualizada",
           description: "Dados da empresa atualizados com sucesso",
         });
       } else {
-        await createEmpresa(values);
+        // Ensure all required fields are present for create operation
+        const empresaData: Omit<Empresa, "id"> = {
+          nome: values.nome,
+          cnpj: values.cnpj,
+        };
+        
+        await createEmpresa(empresaData);
         toast({
           title: "Empresa criada",
           description: "Nova empresa cadastrada com sucesso",

@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -13,10 +12,11 @@ import { getEstoque, createEstoque, updateEstoque, getEmpresas } from "@/service
 import { toast } from "@/hooks/use-toast";
 import { ArrowLeft, Save } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
+import { Estoque } from "@/types";
 
 const formSchema = z.object({
   produto: z.string().min(1, "Produto é obrigatório"),
-  quantidade_final: z.coerce.number().min(0, "A quantidade não pode ser negativa"),
+  quantidade_final: z.coerce.number().min(0, "Quantidade não pode ser negativa"),
   data_base: z.string().min(1, "Data base é obrigatória"),
   empresa_id: z.string().optional(),
 });
@@ -65,7 +65,7 @@ export function EstoqueForm() {
     } catch (error) {
       toast({
         title: "Erro ao carregar",
-        description: "Não foi possível carregar os dados do registro",
+        description: "Não foi possível carregar os dados do estoque",
         variant: "destructive",
       });
       console.error(error);
@@ -81,13 +81,21 @@ export function EstoqueForm() {
       if (isEditing && id) {
         await updateEstoque(id, values);
         toast({
-          title: "Registro atualizado",
+          title: "Estoque atualizado",
           description: "Dados do estoque atualizados com sucesso",
         });
       } else {
-        await createEstoque(values);
+        // Ensure all required fields are present for create operation
+        const estoqueData: Omit<Estoque, "id"> = {
+          produto: values.produto,
+          quantidade_final: values.quantidade_final,
+          data_base: values.data_base,
+          empresa_id: values.empresa_id,
+        };
+        
+        await createEstoque(estoqueData);
         toast({
-          title: "Registro criado",
+          title: "Estoque criado",
           description: "Novo registro de estoque cadastrado com sucesso",
         });
       }
@@ -96,7 +104,7 @@ export function EstoqueForm() {
     } catch (error) {
       toast({
         title: "Erro ao salvar",
-        description: "Não foi possível salvar os dados do registro",
+        description: "Não foi possível salvar os dados do estoque",
         variant: "destructive",
       });
       console.error(error);
