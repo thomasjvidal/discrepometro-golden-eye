@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
@@ -187,8 +188,8 @@ export function DiscrepanciasPage() {
                     <TableHead>Produto</TableHead>
                     <TableHead>Tipo</TableHead>
                     <TableHead>Quantidade</TableHead>
-                    <TableHead>Data do Evento</TableHead>
-                    <TableHead>Data de Registro</TableHead>
+                    <TableHead>Data de Criação</TableHead>
+                    <TableHead>Data de Atualização</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -203,8 +204,8 @@ export function DiscrepanciasPage() {
                         </span>
                       </TableCell>
                       <TableCell>{disc.total_entradas - disc.total_saidas}</TableCell>
-                      <TableCell>{formatDate(disc.data_evento)}</TableCell>
-                      <TableCell>{formatDate(disc.criado_em)}</TableCell>
+                      <TableCell>{formatDate(disc.created_at)}</TableCell>
+                      <TableCell>{formatDate(disc.updated_at)}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
